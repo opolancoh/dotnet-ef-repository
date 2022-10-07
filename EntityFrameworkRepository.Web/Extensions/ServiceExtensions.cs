@@ -1,5 +1,7 @@
 using EntityFrameworkRepository.Core.Contracts;
+using EntityFrameworkRepository.Repository;
 using EntityFrameworkRepository.Service.Logger;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkRepository.Web.Extensions;
 

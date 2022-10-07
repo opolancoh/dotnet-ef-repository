@@ -1,6 +1,7 @@
+using EntityFrameworkRepository.Repository;
 using EntityFrameworkRepository.Web.Extensions;
+using Microsoft.EntityFrameworkCore;
 using NLog;
-using NLog.Targets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 LogManager.LoadConfiguration(Environment.CurrentDirectory + Path.DirectorySeparatorChar + "nlog.config");
 
-builder.Services.ConfigureCors();
-
 builder.Services.ConfigureLoggerService();
 
 builder.Services.AddControllers();
+
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+builder.Services.ConfigureCors();
 
 // Swagger
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
