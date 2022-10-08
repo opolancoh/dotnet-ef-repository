@@ -1,4 +1,4 @@
-using EntityFrameworkRepository.Core.Contracts;
+using EntityFrameworkRepository.Service.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EntityFrameworkRepository.Web.Controllers;

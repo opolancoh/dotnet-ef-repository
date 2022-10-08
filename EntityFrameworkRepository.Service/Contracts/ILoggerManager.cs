@@ -1,4 +1,4 @@
-namespace EntityFrameworkRepository.Core.Contracts;
+namespace EntityFrameworkRepository.Service.Contracts;
 
 public interface ILoggerManager
 {

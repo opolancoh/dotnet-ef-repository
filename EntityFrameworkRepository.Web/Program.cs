@@ -9,13 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 LogManager.LoadConfiguration(Environment.CurrentDirectory + Path.DirectorySeparatorChar + "nlog.config");
 
+builder.Services.ConfigureCors();
 builder.Services.ConfigureLoggerService();
+builder.Services.ConfigureRepositoryManager();
+builder.Services.ConfigureServiceManager();
+builder.Services.ConfigureSqlContext(builder.Configuration);
 
 builder.Services.AddControllers();
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
-
-builder.Services.ConfigureCors();
 
 // Swagger
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
