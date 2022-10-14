@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EntityFrameworkRepository.Core\EntityFrameworkRepository.Core.csproj" />
+      <ProjectReference Include="..\EntityFrameworkRepository.Service\EntityFrameworkRepository.Service.csproj" />
     </ItemGroup>
 
     <ItemGroup>

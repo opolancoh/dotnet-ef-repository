@@ -13,5 +13,5 @@ public class Book
     public ICollection<Review> Reviews { get; set; }
     
     // Many-to-many link relationship (Author)
-    public IList<BookAuthor> AuthorsLink { get; } = new List<BookAuthor>();
+    public ICollection<BookAuthor> AuthorsLink { get; } = new List<BookAuthor>();
 }

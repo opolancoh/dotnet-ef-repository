@@ -8,6 +8,12 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
+    
+    public DbSet<Book> Books { get; set; }
+    public DbSet<BookImage> BookImages { get; set; }
+    public DbSet<Review> Reviews { get; set; }
+    public DbSet<Author> Authors { get; set; }
+    public DbSet<BookAuthor> BookAuthors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,9 +32,4 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(pt => pt.AuthorId);
     }
 
-    public DbSet<Book> Books { get; set; }
-    public DbSet<BookImage> BookImages { get; set; }
-    public DbSet<Review> Reviews { get; set; }
-    public DbSet<Author> Authors { get; set; }
-    public DbSet<BookAuthor> BookAuthors { get; set; }
 }

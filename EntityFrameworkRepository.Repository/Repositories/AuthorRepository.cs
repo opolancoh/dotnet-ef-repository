@@ -3,10 +3,14 @@ using EntityFrameworkRepository.Core.Entities;
 
 namespace EntityFrameworkRepository.Repository.Repositories;
 
-public class AuthorRepository : GenericRepository<Author>, IAuthorRepository
+// public class AuthorRepository : GenericRepository<Author>, IAuthorRepository
+public class AuthorRepository : IAuthorRepository
 {
-    public AuthorRepository(ApplicationDbContext context)
+    /* public AuthorRepository(ApplicationDbContext context)
         : base(context)
+    {
+    } */
+    public AuthorRepository(ApplicationDbContext context)
     {
     }
 }
