@@ -1,14 +1,15 @@
 using EntityFrameworkRepository.Core.Contracts.Repositories;
+using EntityFrameworkRepository.Core.Contracts.Services;
 using EntityFrameworkRepository.Service.Contracts;
 
-namespace EntityFrameworkRepository.Service.Persistence;
+namespace EntityFrameworkRepository.Core.Services.Persistence;
 
 internal sealed class ReviewService : IReviewService
 {
     private readonly IRepositoryManager _repository;
-    private readonly ILoggerManager _logger;
+    private readonly ILoggerService _logger;
 
-    public ReviewService(IRepositoryManager repository, ILoggerManager
+    public ReviewService(IRepositoryManager repository, ILoggerService
         logger)
     {
         _repository = repository;

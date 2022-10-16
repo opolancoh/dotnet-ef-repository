@@ -1,4 +1,4 @@
-using EntityFrameworkRepository.Service.Contracts;
+using EntityFrameworkRepository.Core.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EntityFrameworkRepository.Web.Controllers;
@@ -12,9 +12,9 @@ public class WeatherForecastController : ControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILoggerManager _logger;
+    private readonly ILoggerService _logger;
 
-    public WeatherForecastController(ILoggerManager logger)
+    public WeatherForecastController(ILoggerService logger)
     {
         _logger = logger;
     }

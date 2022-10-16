@@ -18,7 +18,7 @@
     <ItemGroup>
       <ProjectReference Include="..\EntityFrameworkRepository.Core\EntityFrameworkRepository.Core.csproj" />
       <ProjectReference Include="..\EntityFrameworkRepository.Repository\EntityFrameworkRepository.Repository.csproj" />
-      <ProjectReference Include="..\EntityFrameworkRepository.Service\EntityFrameworkRepository.Service.csproj" />
+      <ProjectReference Include="..\EntityFrameworkRepository.Service.Logger\EntityFrameworkRepository.Service.Logger.csproj" />
     </ItemGroup>
 
 </Project>

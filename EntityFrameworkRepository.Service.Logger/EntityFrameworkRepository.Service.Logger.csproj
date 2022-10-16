@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EntityFrameworkRepository.Core\EntityFrameworkRepository.Core.csproj" />
-      <ProjectReference Include="..\EntityFrameworkRepository.Shared\EntityFrameworkRepository.Shared.csproj" />
     </ItemGroup>
 
 </Project>

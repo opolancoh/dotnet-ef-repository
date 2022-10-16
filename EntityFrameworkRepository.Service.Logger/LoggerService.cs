@@ -1,9 +1,9 @@
-using EntityFrameworkRepository.Service.Contracts;
 using NLog;
+using EntityFrameworkRepository.Core.Contracts.Services;
 
-namespace EntityFrameworkRepository.Service;
+namespace EntityFrameworkRepository.Service.Logger;
 
-public class LoggerManager : ILoggerManager
+public class LoggerService : ILoggerService
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 

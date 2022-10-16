@@ -1,6 +1,6 @@
-namespace EntityFrameworkRepository.Service.Contracts;
+namespace EntityFrameworkRepository.Core.Contracts.Services;
 
-public interface ILoggerManager
+public interface ILoggerService
 {
     void LogInfo(string message);
     void LogWarn(string message);

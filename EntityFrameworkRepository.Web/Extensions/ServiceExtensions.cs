@@ -1,7 +1,10 @@
 using EntityFrameworkRepository.Core.Contracts.Repositories;
+using EntityFrameworkRepository.Core.Contracts.Services;
+using EntityFrameworkRepository.Core.Services.Persistence;
 using EntityFrameworkRepository.Repository;
 using EntityFrameworkRepository.Repository.Repositories;
 using EntityFrameworkRepository.Service;
+using EntityFrameworkRepository.Service.Logger;
 using EntityFrameworkRepository.Service.Contracts;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +24,7 @@ public static class ServiceExtensions
     }
 
     public static void ConfigureLoggerService(this IServiceCollection services) =>
-        services.AddSingleton<ILoggerManager, LoggerManager>();
+        services.AddSingleton<ILoggerService, LoggerService>();
 
     public static void ConfigureRepositoryManager(this IServiceCollection services) =>
         services.AddScoped<IRepositoryManager, RepositoryManager>();

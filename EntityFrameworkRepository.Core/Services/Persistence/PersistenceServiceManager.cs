@@ -1,8 +1,8 @@
 using EntityFrameworkRepository.Core.Contracts.Repositories;
+using EntityFrameworkRepository.Core.Contracts.Services;
 using EntityFrameworkRepository.Service.Contracts;
-using EntityFrameworkRepository.Service.Persistence;
 
-namespace EntityFrameworkRepository.Service;
+namespace EntityFrameworkRepository.Core.Services.Persistence;
 
 public sealed class ServiceManager : IServiceManager
 {
@@ -10,7 +10,7 @@ public sealed class ServiceManager : IServiceManager
     private readonly Lazy<IReviewService> _reviewService;
     private readonly Lazy<IAuthorService> _authorService;
 
-    public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
+    public ServiceManager(IRepositoryManager repositoryManager, ILoggerService
         logger)
     {
         _bookService = new Lazy<IBookService>(() => new BookService(repositoryManager, logger));

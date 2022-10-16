@@ -1,17 +1,17 @@
 using EntityFrameworkRepository.Core.Contracts.Repositories;
+using EntityFrameworkRepository.Core.Contracts.Services;
 using EntityFrameworkRepository.Core.Entities;
-using EntityFrameworkRepository.Core.Exceptions;
 using EntityFrameworkRepository.Service.Contracts;
 using EntityFrameworkRepository.Shared.DTOs;
 
-namespace EntityFrameworkRepository.Service.Persistence;
+namespace EntityFrameworkRepository.Core.Services.Persistence;
 
 internal sealed class BookService : IBookService
 {
     private readonly IRepositoryManager _repository;
-    private readonly ILoggerManager _logger;
+    private readonly ILoggerService _logger;
 
-    public BookService(IRepositoryManager repository, ILoggerManager
+    public BookService(IRepositoryManager repository, ILoggerService
         logger)
     {
         _repository = repository;
