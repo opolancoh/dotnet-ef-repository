@@ -5,5 +5,5 @@ public interface IRepositoryManager
     IBookRepository Book { get; }
     IReviewRepository Review { get; }
     IAuthorRepository Author { get; }
-    void CommitChanges();
+    Task CommitChanges();
 }

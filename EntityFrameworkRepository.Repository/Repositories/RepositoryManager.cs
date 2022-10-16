@@ -20,5 +20,5 @@ public sealed class RepositoryManager : IRepositoryManager
     public IBookRepository Book => _bookRepository.Value;
     public IReviewRepository Review => _reviewRepository.Value;
     public IAuthorRepository Author => _authorRepository.Value;
-    public void CommitChanges() => _ctx.SaveChanges();
+    public async Task CommitChanges() => await _ctx.SaveChangesAsync();
 }

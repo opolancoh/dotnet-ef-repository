@@ -44,7 +44,7 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
         return await query.ToListAsync();
     }
 
-    public async Task<BookDetailDto> GetById(Guid id, bool trackChanges)
+    public async Task<BookDetailDto?> GetById(Guid id)
     {
         var query = _dbSet
             .Select(x => new BookDetailDto
@@ -65,10 +65,9 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
                     })
             });
 
-        if (!trackChanges)
-            query = query.AsNoTracking();
-
-        return await query.SingleOrDefaultAsync(x => x.Id == id);
+        return await query
+            .AsNoTracking()
+            .SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task Add(Book item)

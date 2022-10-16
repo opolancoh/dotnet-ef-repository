@@ -1,5 +1,6 @@
 using EntityFrameworkRepository.Core.Contracts.Repositories;
 using EntityFrameworkRepository.Core.Contracts.Services;
+using EntityFrameworkRepository.Core.Contracts.Services.Persistence;
 using EntityFrameworkRepository.Service.Contracts;
 
 namespace EntityFrameworkRepository.Core.Services.Persistence;

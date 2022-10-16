@@ -13,7 +13,7 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         _ctx = context;
     }
 
-    public IQueryable<T> GetAll(bool trackChanges) =>
+    public IQueryable<T> GetMany(bool trackChanges) =>
         trackChanges ? _ctx.Set<T>() : _ctx.Set<T>().AsNoTracking();
 
     public IQueryable<T> GetByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
@@ -27,17 +27,17 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
             .AsNoTracking();
     }
 
-    public void Add(T entity)
+    public void AddOne(T entity)
     {
         _ctx.Set<T>().Add(entity);
     }
 
-    public void Update(T entity)
+    public void UpdateOne(T entity)
     {
         _ctx.Set<T>().Update(entity);
     }
 
-    public void Remove(T entity)
+    public void RemoveOne(T entity)
     {
         _ctx.Set<T>().Remove(entity);
     }

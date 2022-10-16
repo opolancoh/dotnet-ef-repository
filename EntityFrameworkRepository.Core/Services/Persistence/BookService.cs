@@ -1,7 +1,7 @@
 using EntityFrameworkRepository.Core.Contracts.Repositories;
 using EntityFrameworkRepository.Core.Contracts.Services;
+using EntityFrameworkRepository.Core.Contracts.Services.Persistence;
 using EntityFrameworkRepository.Core.Entities;
-using EntityFrameworkRepository.Service.Contracts;
 using EntityFrameworkRepository.Shared.DTOs;
 
 namespace EntityFrameworkRepository.Core.Services.Persistence;
@@ -23,9 +23,9 @@ internal sealed class BookService : IBookService
         return await _repository.Book.GetAll();
     }
 
-    public async Task<BookDetailDto> GetById(Guid id, bool trackChanges)
+    public async Task<BookDetailDto?> GetById(Guid id)
     {
-        return await _repository.Book.GetById(id, trackChanges);
+        return await _repository.Book.GetById(id);
     }
 
     public async Task<BookAddUpdateOutputDto> Add(BookAddUpdateInputDto item)
