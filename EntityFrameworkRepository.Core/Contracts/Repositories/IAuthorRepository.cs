@@ -1,12 +1,14 @@
 using EntityFrameworkRepository.Core.Entities;
+using EntityFrameworkRepository.Shared.DTOs;
 
 namespace EntityFrameworkRepository.Core.Contracts.Repositories;
 
 public interface IAuthorRepository
 {
-    Task<IEnumerable<Author>> GetAll();
-    Task<Author?> GetById(Guid id);
+    Task<IEnumerable<AuthorDto>> GetAll();
+    Task<AuthorDto?> GetById(Guid id);
     void Add(Author item);
-    void Update(Author item);
-    void Remove(Author item);
+    void Update(Guid id, AuthorAddUpdateInputDto item);
+    void Remove(Guid id);
+    bool ItemExists(Guid id);
 }

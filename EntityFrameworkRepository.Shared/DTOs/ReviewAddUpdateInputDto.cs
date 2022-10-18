@@ -1,8 +1,8 @@
 namespace EntityFrameworkRepository.Shared.DTOs;
 
-public record ReviewDto
+public record ReviewAddUpdateInputDto
 {
-    public Guid Id { get; set; }
     public string Comment { get; set; }
     public int Rating { get; set; }
+    public Guid BookId { get; set; }
 }

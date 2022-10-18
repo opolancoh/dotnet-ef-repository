@@ -8,11 +8,11 @@ namespace EntityFrameworkRepository.Repository.Repositories;
 
 public class BookRepository : RepositoryBase<Book>, IBookRepository
 {
-    private readonly ApplicationDbContext _ctx;
+    private readonly DbSet<Book> _entityItems;
 
     public BookRepository(ApplicationDbContext context) : base(context)
     {
-        _ctx = context;
+        _entityItems = context.Books;
     }
 
     public async Task<IEnumerable<BookDetailDto>> GetAll()
@@ -36,7 +36,7 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
 
     public void Update(Guid id, BookAddUpdateInputDto item)
     {
-        var currentItem = _ctx.Books
+        var currentItem = _entityItems
             .Include(x => x.Image)
             .Include(x => x.AuthorsLink)
             .FirstOrDefault(x => x.Id == id);
@@ -76,9 +76,10 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
 
     public void Remove(Guid id)
     {
-        var currentItem = _ctx.Books
+        var currentItem = _entityItems
             .Include(x => x.Image)
             .Include(x => x.AuthorsLink)
+            .AsNoTracking()
             .FirstOrDefault(x => x.Id == id);
 
         if (currentItem == null)
@@ -91,7 +92,7 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
 
     private IQueryable<BookDetailDto> GetBookDetailDtoQuery()
     {
-        var query = _ctx.Books
+        return _entityItems
             .AsNoTracking()
             .Select(x => new BookDetailDto
             {
@@ -110,6 +111,5 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
                         Name = y.Author.Name
                     })
             });
-        return query;
     }
 }

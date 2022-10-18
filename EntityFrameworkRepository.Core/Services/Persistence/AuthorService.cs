@@ -69,22 +69,13 @@ internal sealed class AuthorService : IAuthorService
 
     public async Task Update(Guid id, AuthorAddUpdateInputDto item)
     {
-        var itemToUpdate = new Author()
-        {
-            Id = id,
-            Name = item.Name,
-            Email = item.Email
-        };
-
-        _repository.Author.Update(itemToUpdate);
+        _repository.Author.Update(id, item);
         await _repository.CommitChanges();
     }
 
     public async Task Remove(Guid id)
     {
-        var itemToRemove = new Author {Id = id};
-
-        _repository.Author.Remove(itemToRemove);
+        _repository.Author.Remove(id);
         await _repository.CommitChanges();
     }
 }
