@@ -2,86 +2,44 @@ using Microsoft.EntityFrameworkCore;
 using EntityFrameworkRepository.Core.Contracts.Repositories;
 using EntityFrameworkRepository.Core.Entities;
 using EntityFrameworkRepository.Core.Exceptions;
-using EntityFrameworkRepository.Service.Contracts;
 using EntityFrameworkRepository.Shared.DTOs;
 
 namespace EntityFrameworkRepository.Repository.Repositories;
 
-// public class BookRepository : IBookRepository // RepositoryBase<Book>, IBookRepository
 public class BookRepository : RepositoryBase<Book>, IBookRepository
 {
-    private readonly ApplicationDbContext _context;
-    private readonly DbSet<Book> _dbSet;
+    private readonly ApplicationDbContext _ctx;
 
     public BookRepository(ApplicationDbContext context) : base(context)
     {
-        _context = context;
-        _dbSet = context.Books;
+        _ctx = context;
     }
 
     public async Task<IEnumerable<BookDetailDto>> GetAll()
     {
-        var query = _dbSet
-            .Select(x => new BookDetailDto
-            {
-                Id = x.Id,
-                Title = x.Title,
-                PublishedOn = x.PublishedOn,
-                Image = new BookImageDto
-                {
-                    Url = x.Image.Url,
-                    Alt = x.Image.Alt
-                },
-                Authors = x.AuthorsLink
-                    .Select(y => new AuthorListDto
-                    {
-                        Id = y.Author.Id,
-                        Name = y.Author.Name
-                    })
-            })
-            .AsNoTracking();
+        var query = GetBookDetailDtoQuery();
 
         return await query.ToListAsync();
     }
 
     public async Task<BookDetailDto?> GetById(Guid id)
     {
-        var query = _dbSet
-            .Select(x => new BookDetailDto
-            {
-                Id = x.Id,
-                Title = x.Title,
-                PublishedOn = x.PublishedOn,
-                Image = new BookImageDto
-                {
-                    Url = x.Image.Url,
-                    Alt = x.Image.Alt
-                },
-                Authors = x.AuthorsLink
-                    .Select(y => new AuthorListDto
-                    {
-                        Id = y.Author.Id,
-                        Name = y.Author.Name
-                    })
-            });
+        var query = GetBookDetailDtoQuery();
 
-        return await query
-            .AsNoTracking()
-            .SingleOrDefaultAsync(x => x.Id == id);
+        return await query.SingleOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task Add(Book item)
+    public void Add(Book item)
     {
-        _dbSet.Add(item);
-        await _context.SaveChangesAsync();
+        AddOne(item);
     }
 
-    public async Task Update(Guid id, BookAddUpdateInputDto item)
+    public void Update(Guid id, BookAddUpdateInputDto item)
     {
-        var currentItem = await _dbSet
+        var currentItem = _ctx.Books
             .Include(x => x.Image)
             .Include(x => x.AuthorsLink)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstOrDefault(x => x.Id == id);
 
         if (currentItem == null)
         {
@@ -113,22 +71,45 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
             currentItem.AuthorsLink.Remove(authorToRemove);
         }
 
-        _context.Entry(currentItem).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
+        UpdateOne(currentItem);
     }
 
-    public async Task Remove(Guid id)
+    public void Remove(Guid id)
     {
-        var item = await _dbSet
+        var currentItem = _ctx.Books
+            .Include(x => x.Image)
             .Include(x => x.AuthorsLink)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstOrDefault(x => x.Id == id);
 
-        if (item == null)
+        if (currentItem == null)
         {
             throw new EntityNotFoundException(id);
         }
 
-        _dbSet.Remove(item);
-        await _context.SaveChangesAsync();
+        RemoveOne(currentItem);
+    }
+
+    private IQueryable<BookDetailDto> GetBookDetailDtoQuery()
+    {
+        var query = _ctx.Books
+            .AsNoTracking()
+            .Select(x => new BookDetailDto
+            {
+                Id = x.Id,
+                Title = x.Title,
+                PublishedOn = x.PublishedOn,
+                Image = new BookImageDto
+                {
+                    Url = x.Image.Url,
+                    Alt = x.Image.Alt
+                },
+                Authors = x.AuthorsLink
+                    .Select(y => new AuthorListDto
+                    {
+                        Id = y.Author.Id,
+                        Name = y.Author.Name
+                    })
+            });
+        return query;
     }
 }

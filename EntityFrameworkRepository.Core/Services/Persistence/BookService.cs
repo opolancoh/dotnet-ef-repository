@@ -47,8 +47,9 @@ internal sealed class BookService : IBookService
             newItem.AuthorsLink.Add(new BookAuthor {BookId = newItem.Id, AuthorId = authorId});
         }
 
-        await _repository.Book.Add(newItem);
-        
+        _repository.Book.Add(newItem);
+        await _repository.CommitChanges();
+
         var dto = new BookAddUpdateOutputDto
         {
             Id = newItem.Id,
@@ -67,11 +68,13 @@ internal sealed class BookService : IBookService
 
     public async Task Update(Guid id, BookAddUpdateInputDto item)
     {
-        await _repository.Book.Update(id, item);
+        _repository.Book.Update(id, item);
+        await _repository.CommitChanges();
     }
-    
+
     public async Task Remove(Guid id)
     {
-        await _repository.Book.Remove(id);
+        _repository.Book.Remove(id);
+        await _repository.CommitChanges();
     }
 }

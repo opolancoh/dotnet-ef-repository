@@ -20,9 +20,9 @@ internal sealed class AuthorService : IAuthorService
 
     public async Task<IEnumerable<AuthorDto>> GetAll()
     {
-        var itemsFromDb = await _repository.Author.GetAll();
+        var items = await _repository.Author.GetAll();
 
-        return itemsFromDb.Select(x => new AuthorDto
+        return items.Select(x => new AuthorDto
         {
             Id = x.Id,
             Name = x.Name,

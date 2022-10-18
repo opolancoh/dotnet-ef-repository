@@ -1,6 +1,5 @@
 using EntityFrameworkRepository.Core.Contracts.Repositories;
 using EntityFrameworkRepository.Core.Entities;
-using EntityFrameworkRepository.Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkRepository.Repository.Repositories;
@@ -13,7 +12,7 @@ public class AuthorRepository : RepositoryBase<Author>, IAuthorRepository
 
     public async Task<IEnumerable<Author>> GetAll()
     {
-        return await GetMany(trackChanges: false).ToListAsync();
+        return await GetAll(trackChanges: false).ToListAsync();
     }
 
     public async Task<Author?> GetById(Guid id)

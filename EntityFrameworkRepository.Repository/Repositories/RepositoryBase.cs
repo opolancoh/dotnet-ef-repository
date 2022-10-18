@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
+using EntityFrameworkRepository.Core.Contracts.Repositories;
 using Microsoft.EntityFrameworkCore;
-using EntityFrameworkRepository.Repository.Contracts;
 
 namespace EntityFrameworkRepository.Repository.Repositories;
 
@@ -13,7 +13,7 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         _ctx = context;
     }
 
-    public IQueryable<T> GetMany(bool trackChanges) =>
+    public IQueryable<T> GetAll(bool trackChanges) =>
         trackChanges ? _ctx.Set<T>() : _ctx.Set<T>().AsNoTracking();
 
     public IQueryable<T> GetByCondition(Expression<Func<T, bool>> expression, bool trackChanges)

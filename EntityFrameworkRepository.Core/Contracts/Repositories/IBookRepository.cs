@@ -7,7 +7,7 @@ public interface IBookRepository
 {
     Task<IEnumerable<BookDetailDto>> GetAll();
     Task<BookDetailDto?> GetById(Guid id);
-    Task Add(Book item);
-    Task Update(Guid id, BookAddUpdateInputDto item);
-    Task Remove(Guid id);
+    void Add(Book item);
+    void Update(Guid id, BookAddUpdateInputDto item);
+    void Remove(Guid id);
 }
