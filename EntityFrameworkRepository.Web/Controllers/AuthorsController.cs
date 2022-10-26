@@ -47,7 +47,14 @@ public class AuthorsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, AuthorAddUpdateInputDto item)
     {
-        await _itemService.Update(id, item);
+        try
+        {
+            await _itemService.Update(id, item);
+        }
+        catch (EntityNotFoundException)
+        {
+            return NotFound();
+        }
 
         return NoContent();
     }
@@ -55,8 +62,15 @@ public class AuthorsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Remove(Guid id)
     {
-        await _itemService.Remove(id);
-        
+        try
+        {
+            await _itemService.Remove(id);
+        }
+        catch (EntityNotFoundException)
+        {
+            return NotFound();
+        }
+
         return NoContent();
     }
 }

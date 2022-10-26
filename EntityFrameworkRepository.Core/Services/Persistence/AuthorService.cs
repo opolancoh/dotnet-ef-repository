@@ -2,6 +2,7 @@ using EntityFrameworkRepository.Core.Contracts.Repositories;
 using EntityFrameworkRepository.Core.Contracts.Services;
 using EntityFrameworkRepository.Core.Contracts.Services.Persistence;
 using EntityFrameworkRepository.Core.Entities;
+using EntityFrameworkRepository.Core.Exceptions;
 using EntityFrameworkRepository.Shared.DTOs;
 
 namespace EntityFrameworkRepository.Core.Services.Persistence;
@@ -39,7 +40,7 @@ internal sealed class AuthorService : IAuthorService
             {
                 Id = item.Id,
                 Name = item.Name,
-                Email = item.Name
+                Email = item.Email
             };
 
         return null;
@@ -69,13 +70,46 @@ internal sealed class AuthorService : IAuthorService
 
     public async Task Update(Guid id, AuthorAddUpdateInputDto item)
     {
-        _repository.Author.Update(id, item);
-        await _repository.CommitChanges();
+        try
+        {
+            _repository.Author.Update(id, item);
+            await _repository.CommitChanges();
+        }
+        catch (Exception ex)
+        {
+            if (!ItemExists(id))
+            {
+                throw new EntityNotFoundException(id);
+            }
+            else
+            {
+                throw;
+            }
+        }
+    }
+
+    private bool ItemExists(Guid id)
+    {
+        return _repository.Author.ItemExists(id);
     }
 
     public async Task Remove(Guid id)
     {
-        _repository.Author.Remove(id);
-        await _repository.CommitChanges();
+        try
+        {
+            _repository.Author.Remove(id);
+            await _repository.CommitChanges();
+        }
+        catch (Exception ex)
+        {
+            if (!ItemExists(id))
+            {
+                throw new EntityNotFoundException(id);
+            }
+            else
+            {
+                throw;
+            }
+        }
     }
 }
